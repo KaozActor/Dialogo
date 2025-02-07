@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogo de RPG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        #character {
+            max-width: 200px;
+            margin: 20px auto;
+        }
+        #dialogue {
+            font-size: 20px;
+            margin: 20px;
+            min-height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <img id="character" src="character1.png" alt="Personagem">
+    <div id="dialogue"></div>
+    <button id="nextBtn" style="display: none;">Próximo</button>
+
+    <script>
+        const dialogues = [
+            { text: "Olá Jogador", img: "character1.png" },
+            { text: "Então você é o meu Beta tester?", img: "character2.png" },
+            { text: "Isso é muito, muito interessante...", img: "character1.png" }
+        ];
+
+        let currentDialogueIndex = 0;
+
+        function typeText(text, element, callback) {
+            element.innerHTML = '';
+            let index = 0;
+
+            function type() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50); // Ajusta a velocidade da digitação aqui
+                } else {
+                    callback();
+                }
+            }
+
+            type();
+        }
+
+        function showDialogue() {
+            const dialogueObj = dialogues[currentDialogueIndex];
+            const dialogueElement = document.getElementById('dialogue');
+            const characterImage = document.getElementById('character');
+
+            characterImage.src = dialogueObj.img;
+            typeText(dialogueObj.text, dialogueElement, () => {
+                document.getElementById('nextBtn').style.display = 'block';
+            });
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentDialogueIndex++;
+            if (currentDialogueIndex < dialogues.length) {
+                document.getElementById('nextBtn').style.display = 'none';
+                showDialogue();
+            } else {
+                document.getElementById('dialogue').innerHTML = 'Fim da conversa!';
+                document.getElementById('nextBtn').style.display = 'none';
+                // Aqui você pode reiniciar ou fazer algo no fim
+            }
+        });
+
+        // Iniciar o diálogo ao carregar a página
+        showDialogue();
+    </script>
+
+</body>
+</html>
