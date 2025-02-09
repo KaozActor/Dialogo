@@ -1,75 +1,74 @@
-const dialogues = {
-    "oi": ["Olá jogador!", "Como posso ajudar?"],
-    "ajuda": ["Claro! O que você precisa?", "Aqui estão algumas dicas."],
-    "tchau": ["Até logo, jogador!", "Volte quando quiser!"],
-};
-
-let currentDialogueIndex = 0;
-let soundOn = true;
-
-// Função para digitar texto na tela com efeito
-function typeText(text, element, callback) {
-    element.innerHTML = '';
-    let index = 0;
-    const sound = document.getElementById('sound');
-
-    function type() {
-        if (index < text.length) {
-            element.innerHTML += text.charAt(index);
-            index++;
-            setTimeout(type, 50);
-            if (soundOn) {
-                sound.src = 'sound/beep.wav';
-                sound.play();
-                setTimeout(() => sound.pause(), 100);
-            }
-        } else {
-            callback();
-        }
-    }
-
-    type();
+body {
+    background-color: #1e1e1e;
+    color: #fdfdfd;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-// Função para exibir a resposta baseada na palavra-chave
-function handleUserInput() {
-    const input = document.getElementById('inputKey').value.trim().toLowerCase();
-    const dialogueElement = document.getElementById('dialogue');
-
-    if (dialogues[input]) {
-        typeText(dialogues[input][currentDialogueIndex], dialogueElement, () => {
-            document.getElementById('nextBtn').style.display = 'block';
-        });
-        currentDialogueIndex++;
-        document.getElementById('inputKey').value = ''; // Limpar o campo de entrada
-    } else {
-        dialogueElement.innerHTML = "Palavra-chave desconhecida! Tente 'oi', 'ajuda', ou 'tchau'.";
-    }
+.container {
+    text-align: center;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    width: 400px;
 }
 
-// Função para avançar para o próximo diálogo
-document.getElementById('submitKey').addEventListener('click', handleUserInput);
+h1 {
+    margin-bottom: 20px;
+}
 
-document.getElementById('nextBtn').addEventListener('click', () => {
-    const input = document.getElementById('inputKey').value.trim().toLowerCase();
-    const dialogueElement = document.getElementById('dialogue');
+.menu-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    if (dialogues[input] && currentDialogueIndex < dialogues[input].length) {
-        typeText(dialogues[input][currentDialogueIndex], dialogueElement, () => {
-            currentDialogueIndex++;
-            document.getElementById('nextBtn').style.display = 'block';
-        });
-    } else {
-        dialogueElement.innerHTML = "Fim da conversa!";
-        document.getElementById('nextBtn').style.display = 'none';
-    }
-});
+.menu-btn:hover {
+    background-color: #45a049;
+}
 
-// Função para controlar o som
-document.getElementById('sound-button').addEventListener('click', function() {
-    soundOn = !soundOn;
-    this.textContent = soundOn ? 'Desligar Som' : 'Ligar Som';
-});
+.dialogue-box {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-// Iniciar o diálogo ao carregar a página e tocar a música de fundo
-document.getElementById('bg-music').play();
+#character {
+    width: 100px; /* Altere conforme necessário */
+    margin-bottom: 10px;
+}
+
+#dialogue {
+    background-color: #444;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 50px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+#nextBtn {
+    background-color: #008CBA;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#nextBtn:hover {
+    background-color: #007B9E;
+}
+
+#sound-container {
+    margin-top: 20px;
+}
