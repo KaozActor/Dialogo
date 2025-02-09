@@ -1,77 +1,107 @@
-const entrada = document.getElementById('entrada');
-const enviar = document.getElementById('enviar');
-const mensagem = document.getElementById('mensagem');
-const historico = document.getElementById('historico');
-
-const palavras = {
-    'oi': [
-        'Olá!',
-        'Tudo bem?',
-        'Como posso te ajudar?'
-    ],
-    'ola': [
-        'Oi!',
-        'Estava esperando por você!',
-        'Vamos conversar!'
-    ],
-    'como você está?': [
-        'Estou ótimo, obrigado!',
-        'E você, como está?'
-    ],
-    'tchau': [
-        'Até logo!',
-        'Volte quando quiser!',
-        'Me avise quando voltar!'
-    ],
-};
-
-enviar.addEventListener('click', () => {
-    const palavra = entrada.value.trim().toLowerCase();
-
-    if (palavras[palavra]) {
-        mostrarMensagens(palavras[palavra]);
-        entrada.value = '';
-    } else {
-        mensagem.textContent = 'Palavra chave desconhecida!';
-        entrada.value = '';
-    }
-});
-
-function mostrarMensagens(textos) {
-    mensagem.textContent = ''; // Limpa a mensagem anterior
-    let index = 0;
-
-    function escrever() {
-        if (index < textos.length) {
-            mostrarMensagemComEfeito(textos[index], () => {
-                index++;
-                setTimeout(escrever, 500); // Tempo entre cada mensagem
-            });
-        } else {
-            atualizarHistorico(textos.join(' '));
-        }
-    }
-
-    escrever();
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-function mostrarMensagemComEfeito(texto, callback) {
-    mensagem.textContent = ''; // Limpa a mensagem anterior
-    let i = 0;
-
-    function escrever() {
-        if (i < texto.length) {
-            mensagem.textContent += texto.charAt(i);
-            i++;
-            setTimeout(escrever, 50); // Tempo entre cada letra
-        } else {
-            if (callback) callback();
-        }
-    }
-
-    escrever();
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-function atualizarHistorico(texto) {
-    historico.innerHTML += `<p>${texto}</p>`;
+header nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+header nav button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#dialogue-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    height: 60vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+#character {
+    width: 20%;
+    height: 20%;
+    margin: 10px 0;
+}
+
+#dialogue {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#nextBtn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#sound-container {
+    padding: 20px;
+}
+
+#sound-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#toggle-device {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
 }
