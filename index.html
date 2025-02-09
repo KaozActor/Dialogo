@@ -174,10 +174,9 @@
         });
 
         function updateDialogue() {
-            // Atualiza o texto do diálogo e a imagem correspondente
-            const currentDialogue = currentDialogues[currentDialogueIndex];
-            document.getElementById("dialog").innerText = currentDialogue.text;
-            document.getElementById("char-image").src = currentDialogue.image;
+    const currentDialogue = currentDialogues[currentDialogueIndex];
+    document.getElementById("dialog").innerHTML = currentDialogue.text; // Usar innerHTML
+    document.getElementById("char-image").src = currentDialogue.image;
         }
 
         // Para ocultar o botão "próximo" inicialmente
