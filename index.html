@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Caixa de Diálogo - Undertale</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogo de Hacker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="caixa-de-dialogo">
-        <img id="personagem" src="personagem.png" alt="Personagem">
-        <div class="texto">
-            <p id="mensagem"></p>
+    <div class="container">
+        <h1>Kaoz</h1>
+        <button class="menu-btn" onclick="window.location='index.html'">Voltar ao Menu</button>
+        <div class="dialogue-box">
+            <img id="character" src="character1.png" alt="Personagem">
+            <div id="dialogue">Olá jogador!</div>
+            <input type="text" id="inputKey" placeholder="Escreva uma palavra chave válida" />
+            <button id="submitKey">Enviar</button>
+            <button id="nextBtn" style="display: none;">Próximo</button>
         </div>
-        <input type="text" id="entrada" placeholder="Digite uma palavra chave...">
-        <button id="enviar">Enviar</button>
-        <div id="historico"></div>
+        <div id="sound-container">
+            <button id="sound-button">Desligar Som</button>
+            <audio id="sound"></audio>
+            <audio id="bg-music" loop>
+                <source src="sound/background-music.mp3" type="audio/mpeg"> <!-- Adicione a música de fundo aqui -->
+            </audio>
+        </div>
     </div>
 
     <script src="script.js"></script>
