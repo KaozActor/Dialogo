@@ -1,48 +1,77 @@
-body {
-    background-color: #2b2b2b;
-    color: white;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+const entrada = document.getElementById('entrada');
+const enviar = document.getElementById('enviar');
+const mensagem = document.getElementById('mensagem');
+const historico = document.getElementById('historico');
+
+const palavras = {
+    'oi': [
+        'Olá!',
+        'Tudo bem?',
+        'Como posso te ajudar?'
+    ],
+    'ola': [
+        'Oi!',
+        'Estava esperando por você!',
+        'Vamos conversar!'
+    ],
+    'como você está?': [
+        'Estou ótimo, obrigado!',
+        'E você, como está?'
+    ],
+    'tchau': [
+        'Até logo!',
+        'Volte quando quiser!',
+        'Me avise quando voltar!'
+    ],
+};
+
+enviar.addEventListener('click', () => {
+    const palavra = entrada.value.trim().toLowerCase();
+
+    if (palavras[palavra]) {
+        mostrarMensagens(palavras[palavra]);
+        entrada.value = '';
+    } else {
+        mensagem.textContent = 'Palavra chave desconhecida!';
+        entrada.value = '';
+    }
+});
+
+function mostrarMensagens(textos) {
+    mensagem.textContent = ''; // Limpa a mensagem anterior
+    let index = 0;
+
+    function escrever() {
+        if (index < textos.length) {
+            mostrarMensagemComEfeito(textos[index], () => {
+                index++;
+                setTimeout(escrever, 500); // Tempo entre cada mensagem
+            });
+        } else {
+            atualizarHistorico(textos.join(' '));
+        }
+    }
+
+    escrever();
 }
 
-.caixa-de-dialogo {
-    background-color: #444;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    text-align: center;
-    width: 320px;
+function mostrarMensagemComEfeito(texto, callback) {
+    mensagem.textContent = ''; // Limpa a mensagem anterior
+    let i = 0;
+
+    function escrever() {
+        if (i < texto.length) {
+            mensagem.textContent += texto.charAt(i);
+            i++;
+            setTimeout(escrever, 50); // Tempo entre cada letra
+        } else {
+            if (callback) callback();
+        }
+    }
+
+    escrever();
 }
 
-#personagem {
-    width: 100px; /* Altere o tamanho conforme necessário */
-    margin-bottom: 10px;
-}
-
-#entrada {
-    width: calc(100% - 20px);
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-#enviar {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#enviar:hover {
-    background-color: #45a049;
-}
-
-#historico {
-    margin-top: 10px;
-    text-align: left;
+function atualizarHistorico(texto) {
+    historico.innerHTML += `<p>${texto}</p>`;
 }
