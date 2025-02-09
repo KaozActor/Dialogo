@@ -1,142 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diálogo de Hacker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2b2e43;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        #character {
-            max-width: 200px;
-            margin: 20px auto;
-            filter: grayscale(100%);
-            transform: scale(1);
-            transition: transform 0.2s ease-in-out;
-        }
-        #dialogue {
-            font-size: 20px;
-            margin: 20px;
-            min-height: 40px;
-            background-color: #3b3f56;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .bin-code {
-            display: flex;
-            flex-direction: row;
-            gap: 5px;
-        }
-        .bin-code div {
-            width: 10px;
-            height: 10px;
-            background-color: #ff69b4;
-            border-radius: 50%;
-        }
-        #sound-container {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-        }
-        #sound-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: #fff;
-            cursor: pointer;
-        }
-        #sound-button:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Cápsula do Tempo</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="caixa-de-diálogo">
+    <img src="papyrus.png" alt="Papyrus">
+    <input type="text" id="entrada" placeholder="Digite uma palavra...">
+    <button id="enviar">Enviar</button>
+    <div id="historico"></div>
+    <div id="mensagem"></div>
+  </div>
 
-    <img id="character" src="character1.png" alt="Personagem">
-    <div id="dialogue"></div>
-    <button id="nextBtn" style="display: none;">Próximo</button>
-    <div id="sound-container">
-        <button id="sound-button">Desligar Som</button>
-        <audio id="sound"></audio>
-    </div>
-
-    <script>
-        const dialogues = [
-            { text: "Olá, bem-vindo ao nosso mundo!", img: "character1.png" },
-            { text: "Eu sou o guardião desta terra.", img: "character2.png" },
-            { text: "Prepare-se para uma grande aventura!", img: "character1.png" }
-        ];
-
-        let currentDialogueIndex = 0;
-        let soundOn = true;
-
-        function typeText(text, element, callback) {
-            element.innerHTML = '';
-            let index = 0;
-            let sound = document.getElementById('sound');
-
-            function type() {
-                if (index < text.length) {
-                    element.innerHTML += text.charAt(index);
-                    index++;
-                    setTimeout(type, 50); // Ajusta a velocidade da digitação aqui
-                    if (soundOn) {
-                        sound.src = 'sound/sound.wav'; // Substitua por seu arquivo de som
-                        sound.play();
-                        setTimeout(() => sound.pause(), 100); // Pausar o som após 100ms
-                    }
-                } else {
-                    callback();
-                }
-            }
-
-            type();
-        }
-
-        function showDialogue() {
-            const dialogueObj = dialogues[currentDialogueIndex];
-            const dialogueElement = document.getElementById('dialogue');
-            const characterImage = document.getElementById('character');
-
-            characterImage.src = dialogueObj.img;
-            typeText(dialogueObj.text, dialogueElement, () => {
-                document.getElementById('nextBtn').style.display = 'block';
-            });
-        }
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            currentDialogueIndex++;
-            if (currentDialogueIndex < dialogues.length) {
-                document.getElementById('nextBtn').style.display = 'none';
-                showDialogue();
-            } else {
-                document.getElementById('dialogue').innerHTML = 'Fim da conversa!';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('sound-button').text = 'Ligar Som';
-                soundOn = false;
-                // Aqui você pode reiniciar ou fazer algo no fim
-            }
-        });
-
-        document.getElementById('sound-button').addEventListener('click', function() {
-            if (document.getElementById('sound-button').text === 'Desligar Som') {
-                soundOn = true;
-                document.getElementById('sound-button').text = 'Ligar Som';
-            } else {
-                soundOn = false;
-                document.getElementById('sound-button').text = 'Desligar Som';
-            }
-        });
-
-        // Iniciar o diálogo ao carregar a página
-        showDialogue();
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
