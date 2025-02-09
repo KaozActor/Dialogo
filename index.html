@@ -90,10 +90,10 @@
     <input type="text" id="input-word" placeholder="Digite uma palavra chave..." autofocus>
     <button id="submit-button">Enviar</button>
     <button id="next-button">Próximo</button>
-    <button id="music-button">Reproduzir Música</button> <!-- Botão para controle da música -->
+    <button id="music-button">Reproduzir Música</button> 
 
     <footer>
-        <p>© 2023 Diálogo Interativo</p>
+        <p> 2023 Diálogo Interativo</p>
     </footer>
 
     <script>
@@ -102,41 +102,41 @@
             "palavra1": [
                 {
                     text: "Olá, aventureiro! Você trouxe a palavra chave 1?",
-                    image: "imagem1.jpg" // Caminho para a imagem correspondente
+                    image: "imagem1.jpg" 
                 },
                 {
                     text: "Exatamente! Agora você pode prosseguir.",
-                    image: "imagem2.jpg" // Caminho para a imagem correspondente
+                    image: "imagem2.jpg" 
                 },
             ],
             "palavra2": [
                 {
                     text: "Parabéns! Você descobriu a palavra chave 2.",
-                    image: "imagem3.jpg" // Caminho para a imagem correspondente
+                    image: "imagem3.jpg" 
                 },
                 {
                     text: "Siga em frente e será recompensado!",
-                    image: "imagem4.jpg" // Caminho para a imagem correspondente
+                    image: "imagem4.jpg" 
                 },
             ],
             "palavra3": [
                 {
                     text: "Você acertou a palavra chave 3!",
-                    image: "imagem5.jpg" // Caminho para a imagem correspondente
+                    image: "imagem5.jpg" 
                 },
                 {
                     text: "Continue sua jornada com bravura.",
-                    image: "imagem6.jpg" // Caminho para a imagem correspondente
+                    image: "imagem6.jpg" 
                 },
             ],
             "entrada0": [
                 {
                     text: "Parece que o experimento funcionou uh?",
-                    image: "imagem1.jpg" // Caminho para a imagem correspondente
+                    image: "imagem1.jpg" 
                 },
                 {
                     text: "Bem, essa vai ser a entrada número 0",
-                    image: "imagem2.jpg" // Caminho para a imagem correspondente
+                    image: "imagem2.jpg" 
                 },
                 {
                     text: "Entrada número 0: O experimente foi um sucesso",
@@ -169,8 +169,13 @@
             if (currentDialogueIndex < currentDialogues.length) {
                 updateDialogue();
             } else {
-                // Reiniciar o diálogo ao recarregar a página
-                location.reload(); // Recarrega a página
+                // Voltar à tela inicial sem recarregar a página
+                currentDialogueIndex = 0;
+                currentDialogues = [];
+                document.getElementById("dialog").innerHTML = "Digite uma palavra chave para começar!";
+                document.getElementById("char-image").src = "personagem.jpg"; // Imagem inicial
+                document.getElementById("next-button").style.display = "none";
+                document.getElementById("input-word").focus(); // Foco no campo de entrada
             }
         });
 
