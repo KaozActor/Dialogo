@@ -90,9 +90,10 @@
     <input type="text" id="input-word" placeholder="Digite uma palavra chave..." autofocus>
     <button id="submit-button">Enviar</button>
     <button id="next-button">Próximo</button>
+    <button id="music-button">Reproduzir Música</button> <!-- Botão para controle da música -->
 
     <footer>
-        <p>&copy; 2023 Diálogo Interativo</p>
+        <p>© 2023 Diálogo Interativo</p>
     </footer>
 
     <script>
@@ -174,21 +175,34 @@
         });
 
         function updateDialogue() {
-    const currentDialogue = currentDialogues[currentDialogueIndex];
-    document.getElementById("dialog").innerHTML = currentDialogue.text; // Usar innerHTML
-    document.getElementById("char-image").src = currentDialogue.image;
+            const currentDialogue = currentDialogues[currentDialogueIndex];
+            document.getElementById("dialog").innerHTML = currentDialogue.text; // Usar innerHTML
+            document.getElementById("char-image").src = currentDialogue.image;
         }
 
         // Para ocultar o botão "próximo" inicialmente
         document.getElementById("next-button").style.display = "none";
 
-        //Esse é meu audio
-    const audio = document.createElement('audio');
-    audio.src = 'música-de-fundo.mp3';
-    audio.loop = true;
-    document.body.appendChild(audio);
-    audio.play();
-        
+        // Inicialização do áudio
+        const audio = document.createElement('audio');
+        audio.src = 'música-de-fundo.mp3';
+        audio.loop = true;
+        document.body.appendChild(audio);
+
+        // Controle de música
+        let musicPlaying = false;
+
+        document.getElementById("music-button").addEventListener("click", function() {
+            if (musicPlaying) {
+                audio.pause();
+                this.textContent = "Reproduzir Música"; // Mudar texto do botão
+            } else {
+                audio.play();
+                this.textContent = "Pausar Música"; // Mudar texto do botão
+            }
+            musicPlaying = !musicPlaying; // Alternar estado
+        });
+
     </script>
 
 </body>
